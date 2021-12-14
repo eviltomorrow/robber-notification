@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./;pb";
+package notification;
+
+service Notification {
+    rpc Version(google.protobuf.Empty) returns (google.protobuf.StringValue){}
+    
+    rpc SendEmail(Mail) returns (google.protobuf.Empty){}
+}
+
+message Mail {
+    repeated Contact to = 1;
+    repeated Contact cc = 2;
+    repeated Contact bcc = 3;
+    string subject = 4;
+    string body = 5;
+    enum ContentType {
+        TEXT_HTML = 0;
+        TEXT_PLAIN = 1;
+    }
+    ContentType content_type = 6;
+}
+
+message Contact {
+    string name = 1;
+    string address = 2;
+}
