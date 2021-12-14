@@ -13,7 +13,7 @@ func TestSendWithoutSSL(t *testing.T) {
 		username = "x"
 		password = "x"
 	)
-	err := SendWithoutSSL("x", 465, username, password, &Message{
+	err := SendWithoutSSL("x", username, password, &Message{
 		From: Contact{Address: username},
 		To: []Contact{
 			{Address: "x@163.com"},

@@ -13,8 +13,13 @@ const (
 )
 
 // SendWithoutSSL send mail
-func SendWithoutSSL(smtpAddress string, port int, username, password string, message *Message) error {
-	return send(smtpAddress, port, username, password, false, message)
+func SendWithoutSSL(smtpAddress string, username, password string, message *Message) error {
+	return send(smtpAddress, 25, username, password, true, message)
+}
+
+// SendWithoutSSL send mail
+func SendWithSSL(smtpAddress string, username, password string, message *Message) error {
+	return send(smtpAddress, 465, username, password, true, message)
 }
 
 func send(smtpAddress string, port int, username, password string, ssl bool, message *Message) error {
