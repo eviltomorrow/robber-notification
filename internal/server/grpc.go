@@ -100,7 +100,7 @@ func (g *GRPC) SendEmail(ctx context.Context, req *pb.Mail) (*emptypb.Empty, err
 	}
 	message.Bcc = bcc
 
-	if err := service.SendWithoutSSL(SMTP.Server, SMTP.Port, SMTP.Username, SMTP.Password, message); err != nil {
+	if err := service.SendWithSSL(SMTP.Server, SMTP.Username, SMTP.Password, message); err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, nil

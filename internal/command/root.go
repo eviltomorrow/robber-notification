@@ -42,7 +42,12 @@ var rootCmd = &cobra.Command{
 
 		setupCfg()
 		setupVars()
-		smtp, err := service.LoadSMTPFromFile(cfg.SMTP.Path)
+
+		path, err := service.FindSMTPJSONFile()
+		if err != nil {
+			zlog.Fatal("FindSMTPJSONFile failure", zap.Error(err))
+		}
+		smtp, err := service.LoadSMTPFromFile(path)
 		if err != nil {
 			zlog.Fatal("LoadSMTPFromFile failure", zap.Error(err))
 		}
@@ -126,4 +131,6 @@ func setupVars() {
 	server.Endpoints = cfg.Etcd.Endpoints
 
 	client.EtcdEndpoints = cfg.Etcd.Endpoints
+
+	service.SMTPConfigPath = cfg.SMTP.Path
 }

@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -9,14 +10,13 @@ import (
 func TestSendWithoutSSL(t *testing.T) {
 	_assert := assert.New(t)
 
-	var (
-		username = "x"
-		password = "x"
-	)
-	err := SendWithoutSSL("x", username, password, &Message{
-		From: Contact{Address: username},
+	smtp, err := LoadSMTPFromFile("../../scripts/smtp.json")
+	_assert.Nil(err)
+	fmt.Println(smtp.String())
+	err = SendWithSSL(smtp.Server, smtp.Username, smtp.Password, &Message{
+		From: Contact{Address: smtp.Username},
 		To: []Contact{
-			{Address: "x@163.com"},
+			{Address: "eviltomorrow@163.com"},
 		},
 		Subject:     "This is text",
 		Body:        "test",

@@ -3,10 +3,35 @@ package service
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"os"
+	"path/filepath"
 
 	jsoniter "github.com/json-iterator/go"
 )
+
+var (
+	SMTPConfigPath string
+)
+
+func FindSMTPJSONFile() (string, error) {
+	possibleSMTPJSON := []string{
+		SMTPConfigPath,
+		"./smtp.json",
+		"/etc/smtp.json",
+	}
+	for _, path := range possibleSMTPJSON {
+		if _, err := os.Stat(path); err == nil {
+			absFile, err := filepath.Abs(path)
+			if err == nil {
+				return absFile, nil
+			}
+			return path, nil
+		}
+	}
+	return "", fmt.Errorf("fail to find smtp.json")
+}
 
 func LoadSMTPFromFile(path string) (SMTP, error) {
 	buf, err := ioutil.ReadFile(path)
