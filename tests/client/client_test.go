@@ -9,7 +9,24 @@ import (
 
 	"github.com/eviltomorrow/robber-notification/pkg/client"
 	"github.com/eviltomorrow/robber-notification/pkg/pb"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
+
+func TestVersion(t *testing.T) {
+	stub, close, err := client.NewClientForNotification()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	repley, err := stub.Version(ctx, &emptypb.Empty{})
+	if err != nil {
+		log.Fatalf("Version error: %v", err)
+	}
+	fmt.Println(repley.Value)
+}
 
 func TestSendEmail(t *testing.T) {
 	stub, close, err := client.NewClientForNotification()

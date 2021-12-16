@@ -22,7 +22,7 @@ import (
 
 var (
 	Host           = "0.0.0.0"
-	Port           = 19091
+	Port           = 19092
 	Endpoints      = []string{}
 	RevokeEtcdConn func() error
 	Key            = "grpclb/service/notification"

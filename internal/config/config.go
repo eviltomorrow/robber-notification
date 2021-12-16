@@ -60,12 +60,12 @@ var GlobalConfig = &Config{
 	},
 	Etcd: Etcd{
 		Endpoints: []string{
-			"localhost:2379",
+			"127.0.0.1:2379",
 		},
 	},
 	Server: Server{
 		Host: "0.0.0.0",
-		Port: 19091,
+		Port: 19092,
 	},
 	SMTP: SMTP{
 		Path: "/etc/smtp.json",
