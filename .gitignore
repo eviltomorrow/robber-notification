@@ -16,3 +16,6 @@
 
 bin/robber-notification
 scripts/smtp.json
+package
+log
+robber-notification.pid
