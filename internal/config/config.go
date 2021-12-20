@@ -65,7 +65,7 @@ var GlobalConfig = &Config{
 	},
 	Server: Server{
 		Host: "0.0.0.0",
-		Port: 19092,
+		Port: 27322,
 	},
 	SMTP: SMTP{
 		Path: "/etc/smtp.json",
