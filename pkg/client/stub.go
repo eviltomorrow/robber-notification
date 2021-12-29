@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/eviltomorrow/robber-core/pkg/grpclb"
@@ -20,6 +21,7 @@ var (
 	EtcdEndpoints = []string{
 		"127.0.0.1:2379",
 	}
+	mut sync.Mutex
 )
 
 func NewClientForNotification() (pb.NotificationClient, func(), error) {
@@ -42,6 +44,10 @@ func NewClientForNotification() (pb.NotificationClient, func(), error) {
 	builder := &grpclb.Builder{
 		Client: cli,
 	}
+
+	mut.Lock()
+	defer mut.Unlock()
+
 	resolver.Register(builder)
 
 	target := fmt.Sprintf("etcd:///%s", server.Key)
