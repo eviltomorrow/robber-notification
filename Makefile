@@ -112,5 +112,6 @@ package: build
 	@cp bin/robber-notification package/bin/
 	@cp scripts/startup.sh package/bin/
 	@cp config/config.toml package/etc/
+	@cp scripts/smtp.json package/etc/
 	@echo "exec-path: package/bin/robber-notification"
 	@echo "$(CGREEN)=> Package Success!$(CEND)"
